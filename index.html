@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" id="theme-color" content="#f5f1eb" />
+    <link rel="icon" type="image/webp" href="favicon.webp" />
+    <title>New tab</title>
+    <script>
+      (() => {
+        try {
+          const preference = localStorage.getItem("minimality-theme");
+          const systemTheme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          document.documentElement.dataset.theme = ["light", "dark"].includes(preference) ? preference : systemTheme;
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="sidebar-collapsed">
+    <aside class="sidebar" aria-label="Navigation">
+      <button class="sidebar-toggle" type="button" id="sidebar-toggle" aria-expanded="false" aria-controls="sidebar-navigation" data-tooltip="Open sidebar">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="menu-line menu-line--top" d="M4 7h16" />
+          <path class="menu-line menu-line--middle" d="M4 12h16" />
+          <path class="menu-line menu-line--bottom" d="M4 17h16" />
+        </svg>
+        <span id="sidebar-toggle-label">Open sidebar</span>
+      </button>
+
+      <nav class="sidebar-nav" id="sidebar-navigation">
+        <button class="sidebar-item" type="button" data-sidebar-action="login" data-tooltip="Sign in">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.25" />
+            <path d="M5.5 19.25c.8-3.2 3.03-4.75 6.5-4.75s5.7 1.55 6.5 4.75" />
+          </svg>
+          <span data-sidebar-label="login">Sign in</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="sidebar-item" type="button" data-sidebar-action="settings" data-tooltip="Settings">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m12 3 1.05 1.95 2.16.55 1.88-1.16 1.57 1.57-1.16 1.88.55 2.16L20 11v2l-1.95 1.05-.55 2.16 1.16 1.88-1.57 1.57-1.88-1.16-2.16.55L12 21l-1.05-1.95-2.16-.55-1.88 1.16-1.57-1.57 1.16-1.88-.55-2.16L4 13v-2l1.95-1.05.55-2.16-1.16-1.88 1.57-1.57 1.88 1.16 2.16-.55L12 3Z" />
+            <circle cx="12" cy="12" r="2.75" />
+          </svg>
+          <span data-sidebar-label="settings">Settings</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="sidebar-scrim" id="sidebar-scrim" aria-hidden="true"></div>
+
+    <main class="home-shell">
+      <div class="ambient-shape ambient-shape--bottom-left" aria-hidden="true"></div>
+      <div class="ambient-shape ambient-shape--bottom-right" aria-hidden="true"></div>
+
+      <section class="welcome" aria-labelledby="greeting">
+        <time class="date" id="date"></time>
+        <h1 id="greeting">Good morning</h1>
+        <time class="time" id="time"></time>
+      </section>
+
+      <form class="search-panel" id="search-form" role="search" novalidate>
+        <label class="sr-only" for="search-input" id="search-label">Search the web</label>
+        <div class="search-row">
+          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m21 21-4.35-4.35m1.35-5.65a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+          </svg>
+          <input
+            id="search-input"
+            name="q"
+            type="search"
+            autocomplete="off"
+            autocapitalize="off"
+            autocorrect="off"
+            inputmode="search"
+            enterkeyhint="search"
+            spellcheck="false"
+            placeholder="Search the web"
+            required
+          />
+          <button class="submit-button" type="submit" id="submit-button" aria-label="Search">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h13m-5-5 5 5-5 5" />
+            </svg>
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <dialog class="utility-dialog" id="utility-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-card">
+        <div class="dialog-heading">
+          <h2 id="dialog-title">Settings</h2>
+          <button class="dialog-close" type="button" id="dialog-close" aria-label="Close">×</button>
+        </div>
+        <div id="dialog-content"></div>
+      </div>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
